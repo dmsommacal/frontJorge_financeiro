@@ -11,7 +11,7 @@ const Saldo = () => {
 
   const fetchSaldo = async () => {
     try {
-      const response = await axios.get('/api/saldo');
+      const response = await axios.get('http://localhost:8080/api/entradas');
       setSaldo(response.data);
     } catch (error) {
       console.error('Erro ao buscar o saldo:', error);
@@ -25,6 +25,7 @@ const Saldo = () => {
           <div className="border border-3 border-primary"></div>
           <Card className="shadow">
               <h3 className="fw-bold mb-2 text-uppercase">Saldo</h3>
+              {/*{saldo.map((saldo) => (saldo.valor))}*/}
                         
            </Card>
         </Col>
