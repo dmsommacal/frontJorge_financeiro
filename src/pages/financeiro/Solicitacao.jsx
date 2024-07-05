@@ -3,14 +3,13 @@ import axios from 'axios';
 import { InputGroup, Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const Solicitação = () => {
+const Solicitacao = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    solicitante: '',
-    tipoSolicitação: '',
+    
     descrição: '',
     dataSolicitação: '',
-    prioridade: ''
+    valor:'',    
   });
 
   const handleChange = (e) => {
@@ -42,28 +41,7 @@ const Solicitação = () => {
                 <h2 className="fw-bold mb-2 text-uppercase">Cadastrar Solicitação</h2>
                 <div className="mt-3">
                 <Form onSubmit={handleSubmit}>
-                    <Row className="mb-2">
-                        <Form.Group controlId="solicitante" as={Col} className="mb-2">
-                            <Form.Label>Solicitante</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="solicitante"
-                              value={formData.solicitante}
-                              onChange={handleChange}
-                              required
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="tipoSolicitação" as={Col} className="mb-2">
-                            <Form.Label>Tipo de Solicitação</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="tipoSolicitação"
-                              value={formData.tipoSolicitação}
-                              onChange={handleChange}
-                              required
-                            />
-                        </Form.Group>
-                    </Row>
+                    
                     <Row className="mb-2">
                         <Form.Group controlId="descrição" as={Col} className="mb-2">
                             <Form.Label>Descrição</Form.Label>
@@ -86,12 +64,12 @@ const Solicitação = () => {
                               onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="prioridade" as={Col} className="mb-2">
-                            <Form.Label>Prioridade</Form.Label>
+                        <Form.Group controlId="valor" as={Col} className="mb-2">
+                            <Form.Label>Valor R$</Form.Label>
                             <Form.Control
                               type="text"
-                              name="prioridade"
-                              value={formData.prioridade}
+                              name="valor"
+                              value={formData.valor}
                               onChange={handleChange}
                             />
                         </Form.Group>
@@ -112,4 +90,4 @@ const Solicitação = () => {
   );
 };
 
-export default Solicitação;
+export default Solicitacao;
