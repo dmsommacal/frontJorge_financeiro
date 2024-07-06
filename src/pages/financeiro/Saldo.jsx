@@ -21,13 +21,12 @@ const Saldo = () => {
   return (
     <Container>
       <Row className="vh-100 d-flex justify-content-center align-items-center">
-      <Col md={10} lg={8} xs={12}>
+        <Col md={10} lg={8} xs={12}>
           <div className="border border-3 border-primary"></div>
           <Card className="shadow">
-              <h3 className="fw-bold mb-2 text-uppercase">Saldo</h3>
-              {/*{saldo.map((saldo) => (saldo.valor))}*/}
-                        
-           </Card>
+           <h3 className="fw-bold mb-2 text-uppercase">Saldo</h3>
+           {/*{saldo.map((saldo) => (saldo.valor))}*/}       
+          </Card>
         </Col>
       </Row>
     </Container>

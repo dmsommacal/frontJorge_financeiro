@@ -41,44 +41,43 @@ const Solicitacao = () => {
                 <h2 className="fw-bold mb-2 text-uppercase">Cadastrar Solicitação</h2>
                 <div className="mt-3">
                 <Form onSubmit={handleSubmit}>
-                    
-                    <Row className="mb-2">
-                        <Form.Group controlId="descrição" as={Col} className="mb-2">
-                            <Form.Label>Descrição</Form.Label>
-                            <Form.Control
-                              as="textarea"
-                              name="descrição"
-                              value={formData.descrição}
-                              onChange={handleChange}
-                              required
-                            />
-                        </Form.Group>
-                    </Row>
-                    <Row className="mb-2">
-                        <Form.Group controlId="dataSolicitação" as={Col} className="mb-2">
-                            <Form.Label>Data da Solicitação</Form.Label>
-                            <Form.Control
-                              type="date"
-                              name="dataSolicitação"
-                              value={formData.dataSolicitação}
-                              onChange={handleChange}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="valor" as={Col} className="mb-2">
-                            <Form.Label>Valor R$</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="valor"
-                              value={formData.valor}
-                              onChange={handleChange}
-                            />
-                        </Form.Group>
-                    </Row>
-                    <div className="d-grid">
-                        <Button variant="primary" type="submit">
-                          Salvar
-                        </Button>
-                    </div>
+                  <Row className="mb-2">
+                    <Form.Group controlId="descrição" as={Col} className="mb-2">
+                      <Form.Label>Descrição</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        name="descrição"
+                        value={formData.descrição}
+                        onChange={handleChange}
+                        required
+                      />
+                    </Form.Group>
+                  </Row>
+                  <Row className="mb-2">
+                    <Form.Group controlId="dataSolicitação" as={Col} className="mb-2">
+                        <Form.Label>Data da Solicitação</Form.Label>
+                        <Form.Control
+                          type="date"
+                          name="dataSolicitação"
+                          value={formData.dataSolicitação}
+                          onChange={handleChange}
+                        />
+                    </Form.Group>
+                      <Form.Group controlId="valor" as={Col} className="mb-2">
+                        <Form.Label>Valor R$</Form.Label>
+                        <Form.Control
+                          type="number"
+                          name="valor"
+                          value={formData.valor}
+                          onChange={handleChange}
+                        />
+                      </Form.Group>
+                  </Row>
+                  <div className="d-grid">
+                    <Button variant="primary" type="submit">
+                      Salvar
+                    </Button>
+                  </div>
                 </Form>
                 </div>
               </div>
