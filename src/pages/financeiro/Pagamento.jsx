@@ -31,43 +31,70 @@ const Pagamento = () => {
     }
   };
 
-  
-  
   return (
       <Container className='mt-5'>
         <Row className="justify-content-center">
-            <div className="border border-3 border-primary"></div>
-            <Col md={10}>
-            
+          <div className="border border-3 border-primary"></div>
+          <Col md={12}>
             <h2 className="fw-bold mb-2 text-uppercase">Demonstrativo de Pagamento</h2>
             <Table striped bordered hover>
               <thead>
+                <tr>
+                  <th colSpan="2">Nome funcionário: </th>
+                  <th colSpan="2">Cargo: </th>
+                </tr>
                 <tr>
                   <th>Descritivo</th>
                   <th>Referência</th>
                   <th>Proventos</th>
                   <th>Descontos</th>
                 </tr>
+                </thead>
+                <tbody>
                 <tr>
-                  <th>joão da silva</th>
-                  <th>220</th>
-                  <th>R$5000,00</th>
-                  <th>inss</th>
+                  <th>Salário base: </th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
-              </thead>
-              <tbody>
-                
-                {/* Linhas em branco */}
-                <tr><td colSpan="4">&nbsp;</td></tr>
-                <tr><td colSpan="4">&nbsp;</td></tr>
-                {/* Total */}
-                <tr colSpan="1">Total de desconto</tr>
-                <tr colSpan="1">Total de desconto</tr>
-                <tr colSpan="1">Salário Líquido</tr>
-                  
+                <tr>
+                  <th>INSS: </th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th>IRRF: </th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th colSpan="2"></th>
+                  <th colSpan="2">Total de vencimentos: </th>
+                </tr>
+                <tr>
+                  <th colSpan="2"></th>
+                  <th colSpan="2">Total de descontos: </th>
+                </tr>
+                <tr>
+                  <th colSpan="2"></th>
+                  <th colSpan="4">Salário líquido: </th>
+                </tr>
                   {/*<th>{calcularTotalValor().toFixed(2)}</th>
                   <th>{calcularTotalDesconto().toFixed(2)}</th>*/}
-                
               </tbody>
             </Table>
           </Col>

@@ -29,15 +29,15 @@ export default function App() {
           <Route path="admissao" element = {<Admissao/>} /> 
           <Route path= "demissao" element = {<Demissao/>}/>
           
-            <Route path="financeiro" element = {<Financeiro/>}/>
-            <Route path="solicitacao" element = {<Solicitacao/>}/>
-            <Route path="pagamento" element = {<Pagamento/>}/>
-            <Route path="rescisao" element = {<Rescisao/>}/>
-            <Route path="saldo" element = {<Saldo/>}/>
-            <Route path="pesquisar" element = {<Pesquisar/>}/>
-            <Route path="relatorio" element = {<Relatorio/>}/>
-            <Route path="cadastro" element={<Cadastro/>} />
-            <Route path="editar/:id" element={<Cadastro/>} />
+          <Route path="financeiro" element = {<Financeiro/>}/>
+          <Route path="solicitacao" element = {<Solicitacao/>}/>
+          <Route path="pagamento" element = {<Pagamento/>}/>
+          <Route path="rescisao" element = {<Rescisao/>}/>
+          <Route path="saldo" element = {<Saldo/>}/>
+          <Route path="pesquisar" element = {<Pesquisar/>}/>
+          <Route path="relatorio" element = {<Relatorio/>}/>
+          <Route path="cadastro" element={<Cadastro/>} />
+          <Route path="editar/:id" element={<Cadastro/>} />
         </Routes>
       <Footer />
       </BrowserRouter>
