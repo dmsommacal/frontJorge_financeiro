@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Table, Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
+
 const Listagem = () => {
   const [funcionarios, setFuncionarios] = useState([]);
   const [pesquisa, setPesquisa] = useState({
@@ -20,8 +21,8 @@ const Listagem = () => {
   const fetchFuncionarios = async () => {
     setCarregando(true);
     try {
-      const response = await axios.get('/api/funcionarios'); // URL da sua API
-      setFuncionarios(response.data);
+      const response = await axios.get('http://localhost:8080/api/funcionarios'); // URL da sua API
+      setFuncionarios(response.data.content);
     } catch (error) {
       console.error('Erro ao buscar os dados:', error);
     } finally {
@@ -123,7 +124,7 @@ const Listagem = () => {
             </tr>
           </thead>
           <tbody>
-           {/*} {funcionarios.map((funcionario) => (
+            {funcionarios.map((funcionario) => (
               <tr key={funcionario.id}>
                 <td>{funcionario.id}</td>
                 <td>{funcionario.nome}</td>
@@ -151,7 +152,7 @@ const Listagem = () => {
                   </Button>
                 </td>
               </tr>
-            ))} */}
+            ))} 
           </tbody>
         </Table>
       )}
