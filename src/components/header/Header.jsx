@@ -37,13 +37,12 @@ export default function Header() {
           </Dropdown.Toggle>
           <Dropdown.Menu variant="dark" title="Financeiro">
             <Dropdown.Item as={Link} to={`/`}>Funcionário</Dropdown.Item>
+            <Dropdown.Item as={Link} to={`/entrada`}>Entradas</Dropdown.Item>
             <Dropdown.Item as={Link} to={`/solicitacao`}>Solicitações</Dropdown.Item>
-            <Dropdown.Item as={Link} to={`/pagamento`}>Pagamento</Dropdown.Item>
-            <Dropdown.Item as={Link} to={`/rescisao`}>Rescisão</Dropdown.Item>
+            <Dropdown.Item as={Link} to={`/pagamento`}>Folha</Dropdown.Item>
             <Dropdown.Item as={Link} to={`/saldo`}>Saldo</Dropdown.Item>
-            <Dropdown.Item as={Link} to={`/pesquisar`}>Pesquisar</Dropdown.Item>
             <Dropdown.Item as={Link} to={`/relatorio`}>Relatórios</Dropdown.Item>
-            <Dropdown.Item as={Link} to={`/entrada`}>Entrada</Dropdown.Item>
+            <Dropdown.Item as={Link} to={`/pesquisar`}>Pesquisar</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <NavLink to="colaboradores">Colaboradores</NavLink>
