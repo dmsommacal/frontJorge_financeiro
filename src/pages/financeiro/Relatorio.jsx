@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Container, Row, Col } from 'react-bootstrap';
+import { Table, Container, Row, Col, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const Relatorio = () => {
   const [entradas, setEntradas] = useState([]);
   const [solicitacoes, setSolicitacoes] = useState([]);
   const [carregando, setCarregando] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const Relatorio = () => {
         setCarregando(false);
       }
     };
-  
+
     fetchDados();
   }, []);
 
@@ -51,12 +52,33 @@ const Relatorio = () => {
     });
   };
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredEntradas = entradas.filter(entrada =>
+    entrada.descricao.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredSolicitacoes = solicitacoes.filter(solicitacao =>
+    solicitacao.descricao.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Container className='mt-5'>
       <Row className="justify-content-center">
         <Col md={10}>
           <h2 className="fw-bold mb-2 text-uppercase">Relatório de Entrada</h2>
-          <Table striped bordered hover>
+          <Form.Group controlId="search">
+            <Form.Label>Pesquisar por Descrição</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Digite uma descrição para pesquisar..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </Form.Group>
+          <Table striped bordered hover className="mt-3">
             <thead>
               <tr>
                 <th>Data e Hora</th>
@@ -70,7 +92,7 @@ const Relatorio = () => {
                   <td colSpan="3">Carregando...</td>
                 </tr>
               ) : (
-                entradas.map((entrada, index) => (
+                filteredEntradas.map((entrada, index) => (
                   <tr key={index}>
                     <td>{formatarDataHora(entrada.dataHora)}</td>
                     <td>{entrada.descricao}</td>
@@ -95,7 +117,7 @@ const Relatorio = () => {
                   <td colSpan="3">Carregando...</td>
                 </tr>
               ) : (
-                solicitacoes.map((solicitacao, index) => (
+                filteredSolicitacoes.map((solicitacao, index) => (
                   <tr key={index}>
                     <td>{formatarDataHora(solicitacao.dataHora)}</td>
                     <td>{solicitacao.descricao}</td>
