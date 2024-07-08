@@ -1,61 +1,114 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Button, Container, Row, Col, Form } from 'react-bootstrap';
+import { Table, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const Relatorio = () => {
-  
-  const [funcionarios, setFuncionarios] = useState([]);
-  const [pesquisa, setPesquisa] = useState({
-      descritivo: '',
-      valor: '',
-    });
-  
+  const [entradas, setEntradas] = useState([]);
+  const [solicitacoes, setSolicitacoes] = useState([]);
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-      fetchFuncionarios();
+    const fetchDados = async () => {
+      setCarregando(true);
+      try {
+        const responseEntradas = await axios.get('http://localhost:8080/api/entradas');
+        const responseSolicitacoes = await axios.get('http://localhost:8080/api/solicitacoes');
+        setEntradas(responseEntradas.data && responseEntradas.data.content);
+        setSolicitacoes(responseSolicitacoes.data && responseSolicitacoes.data.content);
+      } catch (error) {
+        console.error('Erro ao buscar os dados:', error);
+        setEntradas([]);
+        setSolicitacoes([]);
+      } finally {
+        setCarregando(false);
+      }
+    };
+  
+    fetchDados();
   }, []);
-     
-         
-  const fetchFuncionarios = async () => {
-        setCarregando(true);
-        try {
-          const response = await axios.get('/api/pagamento'); // URL da sua API
-          setFuncionarios(response.data);
-        } catch (error) {
-          console.error('Erro ao enviar os dado:', error);
-        } finally {
-          setCarregando(false);
-        }
+
+  const formatEntrada = (valor) => {
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
-    
+
+  const formatSolicitacao = (valor) => {
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  };
+
+  const formatarDataHora = (dataHoraStr) => {
+    // Converter a string para um objeto Date
+    const dataHora = new Date(dataHoraStr);
+    // Formatar a data e hora para o formato desejado
+    return dataHora.toLocaleString('pt-BR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+  };
+
   return (
     <Container className='mt-5'>
-    <Row className="justify-content-center">
-        <div className="border border-3 border-primary"></div>
+      <Row className="justify-content-center">
         <Col md={10}>
-        
-        <h2 className="fw-bold mb-2 text-uppercase">Relatório Financeiro</h2>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Descritivo</th>
-              <th>Referência</th>
-              <th>Valor</th>
-            </tr>
-            <tr>
-              <th>recebido de Bruno </th>
-              <th>serviço prestado</th>
-              <th>R$50000,00</th>
-            </tr>
-          </thead>
+          <h2 className="fw-bold mb-2 text-uppercase">Relatório de Entrada</h2>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Data e Hora</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {carregando ? (
+                <tr>
+                  <td colSpan="3">Carregando...</td>
+                </tr>
+              ) : (
+                entradas.map((entrada, index) => (
+                  <tr key={index}>
+                    <td>{formatarDataHora(entrada.dataHora)}</td>
+                    <td>{entrada.descricao}</td>
+                    <td>{formatEntrada(entrada.valor)}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
           </Table>
-          </Col>
-          </Row>
-          </Container>
-    );
-  };
+          <h2 className="fw-bold mb-2 text-uppercase">Relatório de Solicitações</h2>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Data e Hora</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {carregando ? (
+                <tr>
+                  <td colSpan="3">Carregando...</td>
+                </tr>
+              ) : (
+                solicitacoes.map((solicitacao, index) => (
+                  <tr key={index}>
+                    <td>{formatarDataHora(solicitacao.dataHora)}</td>
+                    <td>{solicitacao.descricao}</td>
+                    <td>{formatSolicitacao(solicitacao.valorSolicitado)}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
 export default Relatorio;
