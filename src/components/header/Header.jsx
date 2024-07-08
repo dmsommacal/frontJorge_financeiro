@@ -43,6 +43,7 @@ export default function Header() {
             <Dropdown.Item as={Link} to={`/saldo`}>Saldo</Dropdown.Item>
             <Dropdown.Item as={Link} to={`/pesquisar`}>Pesquisar</Dropdown.Item>
             <Dropdown.Item as={Link} to={`/relatorio`}>Relatórios</Dropdown.Item>
+            <Dropdown.Item as={Link} to={`/entrada`}>Entrada</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <NavLink to="colaboradores">Colaboradores</NavLink>

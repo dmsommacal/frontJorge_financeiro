@@ -17,7 +17,6 @@ import Saldo from './pages/financeiro/Saldo';
 import Pesquisar from './pages/financeiro/Pesquisar';
 import Relatorio from './pages/financeiro/Relatorio';
 
-
 export default function App() {
   return (
     <>
@@ -35,9 +34,9 @@ export default function App() {
           <Route path="rescisao" element = {<Rescisao/>}/>
           <Route path="saldo" element = {<Saldo/>}/>
           <Route path="pesquisar" element = {<Pesquisar/>}/>
-          <Route path="relatorio" element = {<Relatorio/>}/>
           <Route path="cadastro" element={<Cadastro/>} />
           <Route path="editar/:id" element={<Cadastro/>} />
+          <Route path="relatorio" element={<Relatorio/>} />
         </Routes>
       <Footer />
       </BrowserRouter>
