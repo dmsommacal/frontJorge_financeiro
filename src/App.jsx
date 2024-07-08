@@ -12,11 +12,10 @@ import Cadastro from './pages/financeiro/Cadastro';
 import Financeiro from './pages/financeiro/Financeiro'
 import Solicitacao from './pages/financeiro/Solicitacao';
 import Pagamento from './pages/financeiro/Pagamento';
-import Rescisao from './pages/financeiro/Rescisao';
 import Saldo from './pages/financeiro/Saldo';
 import Pesquisar from './pages/financeiro/Pesquisar';
 import Relatorio from './pages/financeiro/Relatorio';
-
+import Entrada from './pages/financeiro/Entrada';
 
 export default function App() {
   return (
@@ -30,14 +29,15 @@ export default function App() {
           <Route path= "demissao" element = {<Demissao/>}/>
           
           <Route path="financeiro" element = {<Financeiro/>}/>
+          <Route path="entrada" element={<Entrada/>} />
           <Route path="solicitacao" element = {<Solicitacao/>}/>
           <Route path="pagamento" element = {<Pagamento/>}/>
-          <Route path="rescisao" element = {<Rescisao/>}/>
           <Route path="saldo" element = {<Saldo/>}/>
           <Route path="pesquisar" element = {<Pesquisar/>}/>
-          <Route path="relatorio" element = {<Relatorio/>}/>
           <Route path="cadastro" element={<Cadastro/>} />
           <Route path="editar/:id" element={<Cadastro/>} />
+          <Route path="relatorio" element={<Relatorio/>} />
+          
         </Routes>
       <Footer />
       </BrowserRouter>
