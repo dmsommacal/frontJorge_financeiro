@@ -38,10 +38,11 @@ const Relatorio = () => {
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
-  const formatarDataHora = (dataHoraStr) => {
-    // Converter a string para um objeto Date
+  const formatDataHora = (dataHoraArray) => {  
+    const dataHoraStr = `${dataHoraArray[0]}-${dataHoraArray[1].toString().padStart(2, '0')}-${dataHoraArray[2].toString().padStart(2, '0')} ${dataHoraArray[3].toString().padStart(2, '0')}:${dataHoraArray[4].toString().padStart(2, '0')}:00`;
+  
     const dataHora = new Date(dataHoraStr);
-    // Formatar a data e hora para o formato desejado
+  
     return dataHora.toLocaleString('pt-BR', {
       year: 'numeric',
       month: '2-digit',
@@ -94,7 +95,7 @@ const Relatorio = () => {
               ) : (
                 filteredEntradas.map((entrada, index) => (
                   <tr key={index}>
-                    <td>{formatarDataHora(entrada.dataHora)}</td>
+                    <td>{formatDataHora(entrada.dataHora)}</td>
                     <td>{entrada.descricao}</td>
                     <td>{formatEntrada(entrada.valor)}</td>
                   </tr>
@@ -119,7 +120,7 @@ const Relatorio = () => {
               ) : (
                 filteredSolicitacoes.map((solicitacao, index) => (
                   <tr key={index}>
-                    <td>{formatarDataHora(solicitacao.dataHora)}</td>
+                    <td>{formatDataHora(solicitacao.dataHora)}</td>
                     <td>{solicitacao.descricao}</td>
                     <td>{formatSolicitacao(solicitacao.valorSolicitado)}</td>
                   </tr>

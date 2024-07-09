@@ -61,7 +61,7 @@ const Solicitacao = () => {
                     <Form.Group controlId="dataSolicitacao" as={Col} className="mb-2">
                         <Form.Label>Data da Solicitação</Form.Label>
                         <Form.Control
-                          type="date"
+                          type="datetime-local"
                           name="dataSolicitacao"
                           value={formData.dataSolicitacao}
                           onChange={handleChange}
