@@ -4,7 +4,7 @@ import { Table, Container, Row, Col, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const Pagamento = () => {
-  const [funcionarios, setFuncionarios] = useState([]);
+  const [folhas, setFolhas] = useState([]);
   const [pesquisa, setPesquisa] = useState({
     descritivo: '',
     referencia: '',
@@ -16,21 +16,21 @@ const Pagamento = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchFuncionarios();
-  }, []);
-
-  const fetchFuncionarios = async () => {
+  
+  const fetchPagamento = async () => {
     setCarregando(true);
     try {
-      const response = await axios.get('/api/pagamento'); // URL da sua API
-      setFuncionarios(response.data);
+      const responseFolhas = await axios.get('http://localhost:8080/api/folhas-pagamentos');
+      setFolhas(responseFolhas.data && responseFolhas.data.content);
     } catch (error) {
       console.error('Erro ao gerar a folha pagameto:', error);
+      setFolhas([]);
     } finally {
       setCarregando(false);
     }
   };
-
+  fetchPagamento();
+}, []);
   return (
       <Container className='mt-5'>
         <Row className="justify-content-center">
@@ -40,7 +40,7 @@ const Pagamento = () => {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th colSpan="2">Nome funcionário: </th>
+                  <th colSpan="2">Nome funcionário:</th>
                   <th colSpan="2">Cargo: </th>
                 </tr>
                 <tr>
@@ -49,7 +49,7 @@ const Pagamento = () => {
                   <th>Proventos</th>
                   <th>Descontos</th>
                 </tr>
-                </thead>
+                </thead>  
                 <tbody>
                 <tr>
                   <th>Salário base: </th>
