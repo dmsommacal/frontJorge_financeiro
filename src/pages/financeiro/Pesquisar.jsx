@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -7,9 +7,27 @@ const Listagem = () => {
   const [funcionarios, setFuncionarios] = useState([]);
   const [pesquisa, setPesquisa] = useState({
     nome: '',
+    cpf: '',
+    id: '',
   });
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchFuncionarios();
+  }, []);
+
+  const fetchFuncionarios = async () => {
+    setCarregando(true);
+    try {
+      const response = await axios.get('http://localhost:8080/api/funcionarios'); // URL da sua API
+      setFuncionarios(response.data.content);
+    } catch (error) {
+      console.error('Erro ao buscar os dados:', error);
+    } finally {
+      setCarregando(false);
+    }
+  };
 
   const handlePesquisaChange = (e) => {
     const { name, value } = e.target;
@@ -22,14 +40,33 @@ const Listagem = () => {
   const handlePesquisar = async () => {
     setCarregando(true);
     try {
-      const response = await axios.get('http://localhost:8080/api/funcionarios', {
-        params: { nome: pesquisa.nome },
-      });
-      setFuncionarios(response.data.content || []);
+      let response;
+      if (pesquisa.id) {
+        // Pesquisa por ID
+        response = await axios.get(`http://localhost:8080/api/funcionarios/${pesquisa.id}`);
+        setFuncionarios([response.data]);
+      } else {
+        // Pesquisa por Nome ou CPF
+        response = await axios.get('http://localhost:8080/api/funcionarios', {
+          params: {
+            nome: pesquisa.nome,
+          },
+        });
+        setFuncionarios(response.data.content);
+      }
     } catch (error) {
       console.error('Erro ao pesquisar os dados:', error);
     } finally {
       setCarregando(false);
+    }
+  };
+
+  const handleExcluir = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/funcionarios/${id}`);
+      fetchFuncionarios();
+    } catch (error) {
+      console.error('Erro ao excluir o dado:', error);
     }
   };
 
@@ -39,9 +76,27 @@ const Listagem = () => {
         <Col md={3}>
           <Form.Control
             type="text"
+            placeholder="Pesquisar por ID"
+            name="id"
+            value={pesquisa.id}
+            onChange={handlePesquisaChange}
+          />
+        </Col>
+        <Col md={3}>
+          <Form.Control
+            type="text"
             placeholder="Pesquisar por Nome"
             name="nome"
             value={pesquisa.nome}
+            onChange={handlePesquisaChange}
+          />
+        </Col>
+        <Col md={3}>
+          <Form.Control
+            type="text"
+            placeholder="Pesquisar por CPF"
+            name="cpf"
+            value={pesquisa.cpf}
             onChange={handlePesquisaChange}
           />
         </Col>
@@ -65,6 +120,7 @@ const Listagem = () => {
               <th>ID</th>
               <th>Nome</th>
               <th>CPF</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +129,23 @@ const Listagem = () => {
                 <td>{funcionario.id}</td>
                 <td>{funcionario.nome}</td>
                 <td>{funcionario.cpf}</td>
+                <td>
+                  <Button
+                    variant="warning"
+                    className="mr-2"
+                    onClick={() => navigate(`/editar/${funcionario.id}`)}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="danger"
+                    className="mr-2"
+                    onClick={() => handleExcluir(funcionario.id)}
+                  >
+                    Excluir
+                  </Button>
+
+                </td>
               </tr>
             ))}
           </tbody>
