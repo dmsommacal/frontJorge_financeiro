@@ -17,8 +17,8 @@ const Relatorio = () => {
   useEffect(() => {
       fetchFuncionarios();
   }, []);
-     
-         
+
+
   const fetchFuncionarios = async () => {
         setCarregando(true);
         try {
@@ -33,28 +33,27 @@ const Relatorio = () => {
     
   return (
     <Container className='mt-5'>
-    <Row className="justify-content-center">
+      <Row className="justify-content-center">
         <div className="border border-3 border-primary"></div>
-        <Col md={10}>
-        
-        <h2 className="fw-bold mb-2 text-uppercase">Relatório Financeiro</h2>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Descritivo</th>
-              <th>Referência</th>
-              <th>Valor</th>
-            </tr>
-            <tr>
-              <th>recebido de Bruno </th>
-              <th>serviço prestado</th>
-              <th>R$50000,00</th>
-            </tr>
-          </thead>
+        <Col md={12}>
+          <h2 className="fw-bold mb-2 text-uppercase">Relatório Financeiro</h2>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Descritivo</th>
+                <th>Referência</th>
+                <th>Valor</th>
+              </tr>
+              <tr>
+                <th>Recebido de Bruno </th>
+                <th>Serviço prestado</th>
+                <th>R$50.000,00</th>
+              </tr>
+            </thead>
           </Table>
-          </Col>
-          </Row>
-          </Container>
+        </Col>
+      </Row>
+    </Container>
     );
   };
 

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Button, Container, Row, Col, Form } from 'react-bootstrap';
+import { Table, Container, Row, Col, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const Pagamento = () => {
