@@ -124,6 +124,9 @@ const Listagem = () => {
               <th>ID</th>
               <th>Nome</th>
               <th>CPF</th>
+              <th>Cargo</th>
+              <th>Salário Contratual</th>
+              <th>Email</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -133,6 +136,9 @@ const Listagem = () => {
                 <td>{funcionario.id}</td>
                 <td>{funcionario.nome}</td>
                 <td>{funcionario.cpf}</td>
+                <td>{funcionario.cargo}</td>
+                <td>{funcionario.salarioContratual}</td>
+                <td>{funcionario.email}</td>
                 <td>
                   <Button
                     variant="warning"
