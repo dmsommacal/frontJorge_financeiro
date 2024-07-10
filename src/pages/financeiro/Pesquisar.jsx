@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Table, Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-
 const Listagem = () => {
   const [funcionarios, setFuncionarios] = useState([]);
   const [pesquisa, setPesquisa] = useState({
@@ -41,10 +40,24 @@ const Listagem = () => {
   const handlePesquisar = async () => {
     setCarregando(true);
     try {
-      const response = await axios.get('/api/funcionarios', {
-        params: pesquisa,
-      });
-      setFuncionarios(response.data);
+      let response;
+      if (pesquisa.id) {
+        // Pesquisa por ID
+        response = await axios.get(`http://localhost:8080/api/funcionarios/${pesquisa.id}`);
+        setFuncionarios([response.data]);
+      } else if (pesquisa.nome) {
+        // Pesquisa por Nome
+        response = await axios.get(`http://localhost:8080/api/funcionarios?filter=${pesquisa.nome}`);
+        setFuncionarios(response.data.content);
+      } else if (pesquisa.cpf) {
+        // Pesquisa por CPF
+        response = await axios.get(`http://localhost:8080/api/funcionarios?cpf=${pesquisa.cpf}`);
+        setFuncionarios(response.data.content);
+      } else {
+        // Pesquisa sem filtro
+        response = await axios.get('http://localhost:8080/api/funcionarios');
+        setFuncionarios(response.data.content);
+      }
     } catch (error) {
       console.error('Erro ao pesquisar os dados:', error);
     } finally {
@@ -54,19 +67,10 @@ const Listagem = () => {
 
   const handleExcluir = async (id) => {
     try {
-      await axios.delete(`/api/funcionarios/${id}`);
+      await axios.delete(`http://localhost:8080/api/funcionarios/${id}`);
       fetchFuncionarios();
     } catch (error) {
       console.error('Erro ao excluir o dado:', error);
-    }
-  };
-
-  const handleAtivarInativar = async (id, status) => {
-    try {
-      await axios.patch(`/api/funcionarios/${id}`, { ativo: !status });
-      fetchFuncionarios();
-    } catch (error) {
-      console.error('Erro ao ativar/inativar o dado:', error);
     }
   };
 
@@ -120,6 +124,9 @@ const Listagem = () => {
               <th>ID</th>
               <th>Nome</th>
               <th>CPF</th>
+              <th>Cargo</th>
+              <th>Salário Contratual</th>
+              <th>Email</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -129,11 +136,14 @@ const Listagem = () => {
                 <td>{funcionario.id}</td>
                 <td>{funcionario.nome}</td>
                 <td>{funcionario.cpf}</td>
+                <td>{funcionario.cargo}</td>
+                <td>{funcionario.salarioContratual}</td>
+                <td>{funcionario.email}</td>
                 <td>
                   <Button
                     variant="warning"
                     className="mr-2"
-                    onClick={() => history.push(`/editar/${funcionario.id}`)}
+                    onClick={() => navigate(`/editar/${funcionario.id}`)}
                   >
                     Editar
                   </Button>
@@ -144,15 +154,9 @@ const Listagem = () => {
                   >
                     Excluir
                   </Button>
-                  <Button
-                    variant={funcionario.ativo ? 'secondary' : 'success'}
-                    onClick={() => handleAtivarInativar(funcionario.id, funcionario.ativo)}
-                  >
-                    {funcionario.ativo ? 'Inativar' : 'Ativar'}
-                  </Button>
                 </td>
               </tr>
-            ))} 
+            ))}
           </tbody>
         </Table>
       )}

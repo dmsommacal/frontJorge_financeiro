@@ -6,10 +6,9 @@ import { useNavigate } from 'react-router-dom';
 const Solicitacao = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    
-    descrição: '',
-    dataSolicitação: '',
-    valor:'',    
+    descricao: '',
+    dataSolicitacao: '',
+    valor: '',    
   });
 
   const handleChange = (e) => {
@@ -22,9 +21,14 @@ const Solicitacao = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formattedData = {
+      descricao: formData.descricao,
+      dataHora: new Date(formData.dataSolicitacao).toISOString(),
+      valorSolicitado: parseFloat(formData.valor)
+    };
     try {
-      await axios.post('/api/solicitacoes', formData);
-      navigate.push('/');
+      await axios.post('http://localhost:8080/api/solicitacoes', formattedData);
+      navigate('/relatorio');
     } catch (error) {
       console.error('Erro ao salvar a solicitação:', error);
     }
@@ -42,36 +46,37 @@ const Solicitacao = () => {
                 <div className="mt-3">
                 <Form onSubmit={handleSubmit}>
                   <Row className="mb-2">
-                    <Form.Group controlId="descrição" as={Col} className="mb-2">
+                    <Form.Group controlId="descricao" as={Col} className="mb-2">
                       <Form.Label>Descrição</Form.Label>
                       <Form.Control
                         as="textarea"
-                        name="descrição"
-                        value={formData.descrição}
+                        name="descricao"
+                        value={formData.descricao}
                         onChange={handleChange}
                         required
                       />
                     </Form.Group>
                   </Row>
                   <Row className="mb-2">
-                    <Form.Group controlId="dataSolicitação" as={Col} className="mb-2">
+                    <Form.Group controlId="dataSolicitacao" as={Col} className="mb-2">
                         <Form.Label>Data da Solicitação</Form.Label>
                         <Form.Control
-                          type="date"
-                          name="dataSolicitação"
-                          value={formData.dataSolicitação}
+                          type="datetime-local"
+                          name="dataSolicitacao"
+                          value={formData.dataSolicitacao}
                           onChange={handleChange}
                         />
                     </Form.Group>
-                      <Form.Group controlId="valor" as={Col} className="mb-2">
+                    <Form.Group controlId="valor" as={Col} className="mb-2">
                         <Form.Label>Valor R$</Form.Label>
                         <Form.Control
                           type="number"
+                          step="0.01"
                           name="valor"
                           value={formData.valor}
                           onChange={handleChange}
                         />
-                      </Form.Group>
+                    </Form.Group>
                   </Row>
                   <div className="d-grid">
                     <Button variant="primary" type="submit">
