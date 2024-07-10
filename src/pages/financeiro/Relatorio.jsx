@@ -10,23 +10,7 @@ const Relatorio = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-      fetchFuncionarios();
-  }, []);
-
-
-  const fetchFuncionarios = async () => {
-        setCarregando(true);
-        try {
-          const response = await axios.get('/api/pagamento'); // URL da sua API
-          setFuncionarios(response.data);
-        } catch (error) {
-          console.error('Erro ao enviar os dado:', error);
-        } finally {
-          setCarregando(false);
-        }
-  };
-    
+  useEffect(() => {    
     const fetchDados = async () => {
       setCarregando(true);
       try {
