@@ -6,7 +6,7 @@ export default function Apresentacao() {
     const navigate = useNavigate();
 
     const handleNavigate = () => {
-        navigate('/colaboradores');
+        navigate('/Cadastro');
     }
 
     return (

@@ -45,13 +45,17 @@ const Listagem = () => {
         // Pesquisa por ID
         response = await axios.get(`http://localhost:8080/api/funcionarios/${pesquisa.id}`);
         setFuncionarios([response.data]);
+      } else if (pesquisa.nome) {
+        // Pesquisa por Nome
+        response = await axios.get(`http://localhost:8080/api/funcionarios?filter=${pesquisa.nome}`);
+        setFuncionarios(response.data.content);
+      } else if (pesquisa.cpf) {
+        // Pesquisa por CPF
+        response = await axios.get(`http://localhost:8080/api/funcionarios?cpf=${pesquisa.cpf}`);
+        setFuncionarios(response.data.content);
       } else {
-        // Pesquisa por Nome ou CPF
-        response = await axios.get('http://localhost:8080/api/funcionarios', {
-          params: {
-            nome: pesquisa.nome,
-          },
-        });
+        // Pesquisa sem filtro
+        response = await axios.get('http://localhost:8080/api/funcionarios');
         setFuncionarios(response.data.content);
       }
     } catch (error) {
@@ -144,7 +148,6 @@ const Listagem = () => {
                   >
                     Excluir
                   </Button>
-
                 </td>
               </tr>
             ))}
