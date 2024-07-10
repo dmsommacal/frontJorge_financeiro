@@ -45,13 +45,17 @@ const Listagem = () => {
         // Pesquisa por ID
         response = await axios.get(`http://localhost:8080/api/funcionarios/${pesquisa.id}`);
         setFuncionarios([response.data]);
+      } else if (pesquisa.nome) {
+        // Pesquisa por Nome
+        response = await axios.get(`http://localhost:8080/api/funcionarios?filter=${pesquisa.nome}`);
+        setFuncionarios(response.data.content);
+      } else if (pesquisa.cpf) {
+        // Pesquisa por CPF
+        response = await axios.get(`http://localhost:8080/api/funcionarios?cpf=${pesquisa.cpf}`);
+        setFuncionarios(response.data.content);
       } else {
-        // Pesquisa por Nome ou CPF
-        response = await axios.get('http://localhost:8080/api/funcionarios', {
-          params: {
-            nome: pesquisa.nome,
-          },
-        });
+        // Pesquisa sem filtro
+        response = await axios.get('http://localhost:8080/api/funcionarios');
         setFuncionarios(response.data.content);
       }
     } catch (error) {
@@ -120,6 +124,9 @@ const Listagem = () => {
               <th>ID</th>
               <th>Nome</th>
               <th>CPF</th>
+              <th>Cargo</th>
+              <th>Salário Contratual</th>
+              <th>Email</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -129,6 +136,9 @@ const Listagem = () => {
                 <td>{funcionario.id}</td>
                 <td>{funcionario.nome}</td>
                 <td>{funcionario.cpf}</td>
+                <td>{funcionario.cargo}</td>
+                <td>{funcionario.salarioContratual}</td>
+                <td>{funcionario.email}</td>
                 <td>
                   <Button
                     variant="warning"
@@ -144,7 +154,6 @@ const Listagem = () => {
                   >
                     Excluir
                   </Button>
-
                 </td>
               </tr>
             ))}
